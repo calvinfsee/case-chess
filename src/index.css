@@ -1,9 +1,6 @@
 html, .app {
   height: 100vh;
   width: 100vw;
-}
-
-.app {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,6 +25,12 @@ html, .app {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.white {
+  color: #FFFFFF;
+}
+.black {
+  color: #000000
 }
 .dark {
   background-color: #B58863;

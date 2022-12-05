@@ -12,7 +12,8 @@ export default function Board ({ color }) {
           <Square
             key={boardTiles[rowNum][colNum]}
             squareId={rowNum + colNum}
-            square={boardTiles[rowNum][colNum]} />
+            square={boardTiles[rowNum][colNum]}
+            piece={piece} />
         )}
         </div>
     ))
