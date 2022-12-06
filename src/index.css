@@ -38,3 +38,10 @@ html, .app {
 .light {
   background-color: #F0D9B5;
 }
+#create-new-game {
+  display: flex;
+  height: 30vh;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}

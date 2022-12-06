@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const URL = '<BACKEND URL HERE>';
+const URL = 'http://localhost:3000/';
 
 const socket = io(URL);
 
