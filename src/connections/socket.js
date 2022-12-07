@@ -7,6 +7,7 @@ const socket = io(URL);
 var mySocketId;
 
 socket.on('createNewGame', statusUpdate => {
+  console.log(statusUpdate.mySocketId);
   mySocketId = statusUpdate.mySocketId
 });
 

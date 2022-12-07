@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
 import { joinChessGame } from '../utils.js';
-import Board from './Board.jsx';
+import GameContainer from './GameContainer.jsx';
 import CreateUsername from './CreateUsername.jsx';
 
 function GameRoom () {
@@ -13,9 +13,9 @@ function GameRoom () {
 
 
   return (
-    <React.Fragment>
-      <Board />
-    </React.Fragment>
+    <div id='room'>
+      <GameContainer username={username} gameid={gameid} />
+    </div>
   )
 }
 

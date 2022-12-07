@@ -35,8 +35,7 @@ export default function Square ({ squareId, square, piece, pColor, game, setGame
   }, [squareId]);
 
   const handleClick = useCallback(() => {
-    //    if (selected && selected.color === pColor) {
-    if (selected) {
+    if (selected && selected.color === pColor) {
       const moveObj = { from: selected.square, to: square };
       const pgn = game.pgn();
       const newGame = new Chess();
@@ -48,8 +47,7 @@ export default function Square ({ squareId, square, piece, pColor, game, setGame
       } else {
         setSelected((prev) => piece && prev.color === piece.color ? piece : null);
       }
-    } else if (piece) {
-      //else if (piece && piece.color === pColor) {
+    } else if (piece && piece.color === pColor) {
       setSelected((prev) => prev && prev.square === square ? prev : piece);
     } else {
       setSelected((prev) => !prev ? prev : null);
