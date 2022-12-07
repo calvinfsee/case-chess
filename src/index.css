@@ -125,3 +125,12 @@ html {
   font-size: 40px;
   margin: 1vw;
 }
+#invite-link-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+h3 {
+  font-size: 60px;
+}
