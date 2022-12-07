@@ -65,6 +65,18 @@ html {
   justify-content: flex-start;
   flex-direction: column;
 }
+#flipped-board {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column-reverse;
+}
+.flipped-row {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
 .row {
   display: flex;
   justify-content: flex-start;

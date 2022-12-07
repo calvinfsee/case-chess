@@ -30,6 +30,9 @@ export default function Square ({ squareId, square, piece, pColor, game, setGame
   }, [piece]);
 
   const tileClr = useMemo(() => {
+    if (pColor === 'b') {
+      return squareId % 2 === 0 ? ' dark' : ' light';
+    }
     if (squareId % 2 === 0) return ' light';
     return ' dark';
   }, [squareId]);

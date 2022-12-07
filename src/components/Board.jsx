@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import { Chess } from 'chess.js';
 import Square from './Square.jsx';
 import { socket } from '../connections/socket.js';
@@ -21,9 +21,14 @@ export default function Board ({ pColor, pgn, gameid }) {
     }
   }, [pgn, game, setGame]);
 
+  const orientation = useMemo(() => {
+    if (pColor === 'b') return { board: 'flipped-board', row: 'flipped-row'};
+    return { board: 'board', row: 'row' };
+  }, [pColor]);
+
   const generateBoard = useCallback(() => {
     return game.board().map((rowArr, rowNum) => (
-      <div key={rowNum} className='row'>
+      <div key={rowNum} className={orientation.row}>
         {rowArr.map((piece, colNum) =>
           <Square
             key={boardTiles[rowNum][colNum]}
@@ -38,9 +43,9 @@ export default function Board ({ pColor, pgn, gameid }) {
         )}
         </div>
     ))
-  }, [game, setGame, selected, setSelected, pColor]);
+  }, [game, setGame, selected, setSelected, pColor, orientation]);
 
   return (
-    <div id='board'>{generateBoard()}</div>
+    <div id={orientation.board}>{generateBoard()}</div>
   );
 }
