@@ -7,15 +7,14 @@ const results = {
   draw: 'Its a draw!'
 }
 
-export default function ResultModal ({ result, setShowResult, rematch, setRematch, username, gameid }) {
+export default function ResultModal ({ result, setShowResult, username, gameid }) {
   const closeModal = useCallback(() => {
     setShowResult(false);
   }, []);
 
   const requestRematch = useCallback(() => {
-    setRematch(true);
-    socket.emit('request rematch', { gameId: gameid, username });
-  }, [setRematch]);
+    socket.emit('rematch', { gameId: gameid, username });
+  }, []);
 
   return (
     <div id='result-modal'>

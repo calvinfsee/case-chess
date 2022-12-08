@@ -10,6 +10,8 @@ function GameRoom () {
   const { gameid } = useParams();
   const [username, setUsername, isCreator, setIsCreator] = useOutletContext();
   const [started, setStarted] = useState(false);
+  const [rematch, setRematch] = useState(false);
+  const [oRematch, setORematch] = useState(false);
   const [playerColor, setPlayerColor] = useState('');
 
   useEffect(() => {
@@ -19,22 +21,33 @@ function GameRoom () {
         if (data.opponent === username) return data.oColor;
         return data.oColor === 'w' ? 'b' : 'w';
       });
+      setRematch(false);
+      setORematch(false);
     });
   }, []);
+  useEffect(() => {
+    socket.on('rematch', (req) => {
+      if (req.username === username) {
+        setRematch(true);
+      } else {
+        setORematch(true);
+      }
+    });
+  }, []);
+  useEffect(() => {
+    if (rematch && oRematch) {
+      socket.emit('rematch accepted', { gameId: gameid, username });
+    }
+  }, [rematch, oRematch]);
 
   useEffect(() => {
     joinChessGame(gameid, username);
   }, [gameid, username]);
 
 
-  useEffect(() => {
-    if (playerColor !== '') setStarted(true);
-  }, [playerColor]);
-
-
   return (
     <div id='room'>
-      {started ? <GameContainer username={username} gameid={gameid} pColor={playerColor} /> : <InviteLink gameid={gameid} />}
+      {playerColor !== '' ? <GameContainer username={username} gameid={gameid} pColor={playerColor} /> : <InviteLink gameid={gameid} />}
     </div>
   )
 }

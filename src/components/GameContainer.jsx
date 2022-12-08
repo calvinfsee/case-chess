@@ -7,17 +7,16 @@ import ResultModal from './ResultModal.jsx';
 export default function GameContainer ({ username, gameid, pColor }) {
   const [pgn, setPgn] = useState('');
   const [result, setResult] = useState('tbd');
-  const [rematch, setRematch] = useState(false);
   const [showResult, setShowResult] = useState(false);
+
   useEffect(() => {
-    //! Need to set it so that the colors are reversed on rematch
-    socket.on('rematch accepted', req => {
+    socket.on('start game', () => {
       setPgn('');
-      setResult('tbd');
       setShowResult(false);
-      setRematch(false);
+      setResult('tbd');
     });
   }, []);
+
   useEffect(() => {
     const unsubscribe = socket.on('opponent move', (data) => {
       setPgn(data.pgn);
@@ -29,18 +28,11 @@ export default function GameContainer ({ username, gameid, pColor }) {
       setShowResult(true);
     }
   }, [result]);
-  useEffect(() => {
-    socket.on('request rematch', (req) => {
-      if (req.username !== username && rematch) {
-        socket.emit('rematch accepted', { gameId: gameid });
-      }
-    })
-  }, [rematch]);
 
   return (
     <React.Fragment>
       <Board pColor={pColor} pgn={pgn} gameid={gameid} setResult={setResult} />
-      {showResult ? <ResultModal result={result} setShowResult={setShowResult} rematch={rematch} setRematch={setRematch} username={username} gameid={gameid} /> : null}
+      {showResult ? <ResultModal result={result} setShowResult={setShowResult} username={username} gameid={gameid} /> : null}
     </React.Fragment>
   )
 }

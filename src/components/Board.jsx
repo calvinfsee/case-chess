@@ -9,10 +9,9 @@ export default function Board ({ pColor, pgn, gameid, setResult }) {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    if (pgn !== game.pgn()) {
-      if (pgn === '') {
-        setGame(new Chess());
-      } else {
+    if (pgn === '' && game.game_over()) {
+      setGame(new Chess());
+    } else if (pgn !== game.pgn()) {
         const newGameState = new Chess();
         newGameState.load_pgn(pgn);
         if (game.history().length > newGameState.history().length) {
@@ -21,7 +20,6 @@ export default function Board ({ pColor, pgn, gameid, setResult }) {
         } else {
           setGame(newGameState);
         }
-      }
     }
   }, [pgn, game, setGame]);
   useEffect(() => {
