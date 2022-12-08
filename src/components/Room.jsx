@@ -15,6 +15,7 @@ function GameRoom () {
   const [playerColor, setPlayerColor] = useState('');
 
   useEffect(() => {
+    //! Issue where rematch doesn't change player color because setPlayerColor is not included in dependencies?
     socket.on('start game', (data) => {
       console.log('start!');
       setPlayerColor(() => {
